@@ -18,3 +18,15 @@ data Hamburguesa = Hamburguesa {
     ingredientes :: [Ingrediente]
 } deriving (Eq, Show)
 
+agrandar :: Hamburguesa -> Hamburguesa
+agrandar hamburguesa | esDeCarne Hamburguesa = agregarIngrediente Carne 
+                     | esDePollo Hamburguesa = agregarIngrediente Pollo
+
+esDeCarne :: Hamburguesa -> Bool
+esDeCarne (Hamburguesa _ ingredientes) = elem Carne ingredientes
+
+esDePollo :: Hamburguesa -> Bool 
+esDePollo (Hamburguesa _ ingredientes) = elem Pollo ingredientes
+
+agregarIngrediente :: Ingrediente -> Hamburguesa -> Hamburguesa
+agr
