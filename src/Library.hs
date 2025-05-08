@@ -2,7 +2,7 @@ module Library where
 import PdePreludat
 
 data Ingrediente =
-    Carne | Pan | Panceta | Cheddar | Pollo | Curry | QuesoDeAlmendras | BaconDeTofu | Papas | PatiVegano
+    Carne | Pan | Panceta | Cheddar | Pollo | Curry | QuesoDeAlmendras | BaconDeTofu | Papas | PatiVegano | PanIntegral 
     deriving (Eq, Show)
 
 precioIngrediente Carne = 20
@@ -15,6 +15,7 @@ precioIngrediente QuesoDeAlmendras = 15
 precioIngrediente BaconDeTofu = 12
 precioIngrediente Papas = 10
 precioIngrediente PatiVegano = 10
+precioIngrediente PanIntegral = 3
 
 data Hamburguesa = Hamburguesa {
     precioBase :: Number,
@@ -66,5 +67,29 @@ delDia  = descuento 30 .agregarIngrediente Papas
 
 --parte 3
 
-hacerVeggie :: 
+hacerVeggie :: Hamburguesa -> Hamburguesa
+hacerVeggie (Hamburguesa precio ingredientes) 
+    = Hamburguesa (calcularPrecioHamburguesa ingredientes) (map hacerVeggieIngredientes ingredientes)
+
+hacerVeggieIngredientes :: Ingrediente -> Ingrediente
+hacerVeggieIngredientes Pollo = PatiVegano
+hacerVeggieIngredientes Carne = PatiVegano
+hacerVeggieIngredientes Cheddar = QuesoDeAlmendras
+hacerVeggieIngredientes Panceta = BaconDeTofu
+hacerVeggieIngredientes otro = otro
+
+calcularPrecioHamburguesa :: [Ingrediente] -> Number
+calcularPrecioHamburguesa ingredientes 
+    = sum (map precioIngrediente ingredientes)
+
+cambiarPanDePati :: Hamburguesa -> Hamburguesa
+cambiarPanDePati (Hamburguesa precio ingredientes) = 
+    Hamburguesa (calcularPrecioHamburguesa ingredientes) (map cambiarPan ingredientes)
+
+cambiarPan :: Ingrediente -> Ingrediente
+cambiarPan Pan = PanIntegral
+cambiarPan otraCosa = otraCosa
+
+dobleCuartoVegano :: Hamburguesa
+dobleCuartoVegano = (cambiarPanDePati . hacerVeggie ) dobleCuarto
 
