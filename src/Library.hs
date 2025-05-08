@@ -2,7 +2,7 @@ module Library where
 import PdePreludat
 
 data Ingrediente =
-    Carne | Pan | Panceta | Cheddar | Pollo | Curry | QuesoDeAlmendras | BaconDeTofu
+    Carne | Pan | Panceta | Cheddar | Pollo | Curry | QuesoDeAlmendras | BaconDeTofu | Papas | PatiVegano
     deriving (Eq, Show)
 
 precioIngrediente Carne = 20
@@ -13,6 +13,8 @@ precioIngrediente Pollo =  10
 precioIngrediente Curry = 5
 precioIngrediente QuesoDeAlmendras = 15
 precioIngrediente BaconDeTofu = 12
+precioIngrediente Papas = 10
+precioIngrediente PatiVegano = 10
 
 data Hamburguesa = Hamburguesa {
     precioBase :: Number,
@@ -25,9 +27,11 @@ cuartoDeLibra = Hamburguesa 20 [Pan, Carne, Cheddar, Pan]
 agrandar :: Hamburguesa -> Hamburguesa
 agrandar hamburguesa | ingredienteBase hamburguesa == Carne = agregarIngrediente Carne hamburguesa
                      | ingredienteBase hamburguesa == Pollo = agregarIngrediente Pollo hamburguesa
+                     | ingredienteBase hamburguesa == PatiVegano = agregarIngrediente PatiVegano hamburguesa
 
 ingredienteBase :: Hamburguesa -> Ingrediente
 ingredienteBase (Hamburguesa _ ingredientes) | elem Pollo ingredientes = Pollo
+                                             | elem PatiVegano ingredientes = PatiVegano
                                              | otherwise = Carne
 
 agregarIngrediente :: Ingrediente -> Hamburguesa -> Hamburguesa
@@ -51,6 +55,16 @@ modificarPrecioBase nuevoPrecio (Hamburguesa precioViejo ingredientes)
 pdepBurger :: Hamburguesa 
 pdepBurger = (agregarIngrediente Cheddar .agregarIngrediente Panceta .agregarIngrediente Panceta . agrandar . agrandar)cuartoDeLibra
 
+dobleCuarto :: Hamburguesa 
+dobleCuarto = (agregarIngrediente Cheddar .agrandar)cuartoDeLibra
 
+bigPdep :: Hamburguesa
+bigPdep = agregarIngrediente Curry dobleCuarto
 
-  
+delDia :: Hamburguesa -> Hamburguesa
+delDia  = descuento 30 .agregarIngrediente Papas  
+
+--parte 3
+
+hacerVeggie :: 
+
