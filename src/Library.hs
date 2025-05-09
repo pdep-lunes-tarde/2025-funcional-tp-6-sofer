@@ -37,7 +37,7 @@ ingredienteBase (Hamburguesa _ ingredientes) | elem Pollo ingredientes = Pollo
 
 agregarIngrediente :: Ingrediente -> Hamburguesa -> Hamburguesa
 agregarIngrediente ingrediente (Hamburguesa precioBase ingredientes) 
-    = Hamburguesa (cambiarPrecio precioBase ingrediente) (ingrediente:ingredientes)
+    = Hamburguesa precioBase (ingrediente:ingredientes)
 
 cambiarPrecio :: Number -> Ingrediente -> Number
 cambiarPrecio precioBase ingrediente =  precioBase + precioIngrediente ingrediente
@@ -68,8 +68,8 @@ delDia  = descuento 30 .agregarIngrediente Papas
 --parte 3
 
 hacerVeggie :: Hamburguesa -> Hamburguesa
-hacerVeggie (Hamburguesa precio ingredientes) 
-    = Hamburguesa (calcularPrecioHamburguesa ingredientes) (map hacerVeggieIngredientes ingredientes)
+hacerVeggie (Hamburguesa precioBase ingredientes) 
+    = Hamburguesa precioBase (map hacerVeggieIngredientes ingredientes)
 
 hacerVeggieIngredientes :: Ingrediente -> Ingrediente
 hacerVeggieIngredientes Pollo = PatiVegano
@@ -78,13 +78,13 @@ hacerVeggieIngredientes Cheddar = QuesoDeAlmendras
 hacerVeggieIngredientes Panceta = BaconDeTofu
 hacerVeggieIngredientes otro = otro
 
-calcularPrecioHamburguesa :: [Ingrediente] -> Number
-calcularPrecioHamburguesa ingredientes 
-    = sum (map precioIngrediente ingredientes)
+precioFinal :: Hamburguesa -> Number
+precioFinal (Hamburguesa precioBase ingredientes) 
+    = sum (map precioIngrediente ingredientes) + precioBase
 
 cambiarPanDePati :: Hamburguesa -> Hamburguesa
-cambiarPanDePati (Hamburguesa precio ingredientes) = 
-    Hamburguesa (calcularPrecioHamburguesa ingredientes) (map cambiarPan ingredientes)
+cambiarPanDePati (Hamburguesa precioBase ingredientes) = 
+    Hamburguesa precioBase (map cambiarPan ingredientes)
 
 cambiarPan :: Ingrediente -> Ingrediente
 cambiarPan Pan = PanIntegral
