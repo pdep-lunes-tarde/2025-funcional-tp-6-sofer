@@ -54,7 +54,7 @@ modificarPrecioBase nuevoPrecio (Hamburguesa precioViejo ingredientes)
     = Hamburguesa nuevoPrecio ingredientes
 
 pdepBurger :: Hamburguesa 
-pdepBurger = (agregarIngrediente Cheddar .agregarIngrediente Panceta .agregarIngrediente Panceta . agrandar . agrandar)cuartoDeLibra
+pdepBurger = (descuento 20 .agregarIngrediente Cheddar .agregarIngrediente Panceta . agrandar . agrandar)cuartoDeLibra
 
 dobleCuarto :: Hamburguesa 
 dobleCuarto = (agregarIngrediente Cheddar .agrandar)cuartoDeLibra
