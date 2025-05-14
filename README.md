@@ -13,15 +13,11 @@
 
 - Nombre del grupo
 
-- Legajo: **Completar**
-- Nombre: **Completar**
+- Legajo: 213302-7
+- Nombre: Sofia Verona Rapetti
 
-- Legajo: **Completar**
-- Nombre: **Completar**
-
-- Legajo: **Completar**
-- Nombre: **Completar**
-
+- Legajo: 1419250
+- Nombre: Fernando Acevedo
 
 ## El enunciado
 
